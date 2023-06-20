@@ -10,6 +10,12 @@ command = {
     pg.K_LEFT: (-5, 0),
     pg.K_RIGHT: (+5, 0),
 }
+kk_roto = {
+    pg.K_UP: (0, -5),
+    pg.K_RIGHT:(+5, 0),
+    pg.K_DOWN:(0, +5),
+    pg.K_LEFT:(-5, 0),
+}
 
 def check_bound(rect: pg.Rect) -> tuple[bool, bool]:
     yoko, tate = True, True
@@ -23,10 +29,16 @@ def main():
     screen = pg.display.set_mode((WIDTH, HEIGHT))
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02/fig/3.png")
-    kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
+    kk_img = pg.transform.rotozoom(kk_img, 10, 2.0)
     bd_img = pg.Surface((20, 20))
     bd_img.set_colorkey((0, 0, 0))
     pg.draw.circle(bd_img, (255, 0, 0), (10, 10), 10)
+    kk_roto = {
+        pg.K_UP: (0, -5),
+        pg.K_RIGHT:(+5, 0),
+        pg.K_DOWN:(0, +5),
+        pg.K_LEFT:(-5, 0),
+    }
     x = random.randint(0, WIDTH)
     y = random.randint(0, HEIGHT)
     bombrect = bd_img.get_rect()
@@ -34,6 +46,7 @@ def main():
     kk_rct.center = 900, 400
     bombrect.center = x, y
     vx, vy = +5, +5
+ 
     clock = pg.time.Clock()
     tmr = 0
 
@@ -45,6 +58,13 @@ def main():
         if kk_rct.colliderect(bombrect):
             print("ゲームオーバー")
             return 
+        roto_lst = pg.key.get_pressed()
+        sum_roto = [0,0]
+        for i, f in kk_roto.items():
+            if roto_lst[i]:
+                
+                kk_img = pg.transform.rotozoom(kk_img, 90, 1.0)
+        
         key_lst = pg.key.get_pressed()
         sum_mv = [0, 0]
         for k, mv in command.items():
@@ -62,6 +82,8 @@ def main():
             vx *= -1
         if not tate:
             vy *= -1
+        
+
         screen.blit(bd_img, bombrect)
 
         pg.display.update()
