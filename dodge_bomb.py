@@ -62,7 +62,9 @@ def main():
         sum_roto = [0,0]
         for i, f in kk_roto.items():
             if roto_lst[i]:
-                
+                sum_roto[0] += f[0]
+                sum_roto[1] += f[1]
+            
                 kk_img = pg.transform.rotozoom(kk_img, 90, 1.0)
         
         key_lst = pg.key.get_pressed()
