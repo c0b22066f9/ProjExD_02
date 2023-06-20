@@ -17,6 +17,7 @@ kk_roto = {
     pg.K_LEFT:(-5, 0),
 }
 
+
 def check_bound(rect: pg.Rect) -> tuple[bool, bool]:
     yoko, tate = True, True
     if rect.left < 0 or WIDTH < rect.right:
@@ -24,6 +25,8 @@ def check_bound(rect: pg.Rect) -> tuple[bool, bool]:
     if rect.top < 0 or HEIGHT < rect.bottom:
         tate = False
     return yoko, tate
+
+
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))
